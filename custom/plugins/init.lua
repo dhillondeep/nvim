@@ -3,23 +3,23 @@ return {
   ["kkharji/sqlite.lua"] = {},
 
   -- UI
-  -- ["anuvyklack/windows.nvim"] = {
-  --   cmd = { "WindowsMaximize", "WindowsMaximizeVertically", "WindowsMaximizeHorizontally", "WindowsEqualize" },
-  --   requires = {
-  --     { "anuvyklack/middleclass" },
-  --     { "anuvyklack/animation.nvim" },
-  --   },
-  --   setup = function ()
-  --     vim.o.winwidth = 10
-  --     vim.o.winminwidth = 10
-  --     vim.o.equalalways = false
-  --
-  --     require("core.utils").load_mappings "windows"
-  --   end,
-  --   config = function ()
-  --     require("windows").setup()
-  --   end
-  -- },
+  ["anuvyklack/windows.nvim"] = {
+    -- cmd = { "WindowsMaximize", "WindowsMaximizeVertically", "WindowsMaximizeHorizontally", "WindowsEqualize" },
+    requires = {
+      { "anuvyklack/middleclass" },
+      { "anuvyklack/animation.nvim" },
+    },
+    setup = function ()
+      vim.o.winwidth = 10
+      vim.o.winminwidth = 10
+      vim.o.equalalways = false
+
+      require("core.utils").load_mappings "windows"
+    end,
+    config = function ()
+      require("windows").setup()
+    end
+  },
 
   -- Startup and Projects
 
@@ -167,60 +167,22 @@ return {
   },
 
   ["nvim-telescope/telescope.nvim"] = {
+    -- cmd = "Telescope",
     requires = {
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
       },
-      {
-        "nvim-telescope/telescope-smart-history.nvim",
-        after = { "sqlite.lua" }
-      }
+      { "nvim-telescope/telescope-live-grep-args.nvim" },
+      { "nvim-telescope/telescope-frecency.nvim", after = "sqlite.lua" },
     },
-    after = { "telescope-fzf-native.nvim", "telescope-smart-history.nvim" },
-    override_options = {
-      defaults = {
-        cache_picker = {
-          num_pickers = -1,
-        },
-        history = {
-          path = '~/.local/share/nvim/databases/telescope_history.sqlite3',
-          limit = 100,
-        },
-        vimgrep_arguments = {
-          "rg",
-          "--column",
-          "--line-number",
-          "--no-heading",
-          "--color=never",
-          "--hidden",
-          "--follow",
-          "--no-ignore",
-          "--smart-case",
-        },
-        preview = {
-          treesitter = {
-            enable = {
-              'css', 'dockerfile', 'html', 'http', 'javascript', 'json', 'lua', 'php',
-              'python', 'regex', 'ruby', 'rust', 'scss', 'typescript', 'vue', 'yaml',
-              'markdown', 'bash', 'c', 'cmake', 'comment', 'cpp', 'dart', 'go', 'gomod',
-              'jsdoc', 'json5', 'jsonc', 'llvm', 'make', 'ninja', 'prisma',
-              'proto', 'swift', 'toml', 'tsx',
-            }
-          }
-        },
-        file_ignore_patterns = { "node_modules", "bazel", ".cache" },
-        extensions_list = { "fzf", "smart_history" },
-        extensions = {
-          fzf = {
-            fuzzy = true,
-            override_generic_sorter = true,
-            override_file_sorter = true,
-            case_mode = 'smart_case',
-          },
-        },
-      }
-    }
+    after = { "telescope-fzf-native.nvim", "telescope-live-grep-args.nvim", "telescope-frecency.nvim" },
+    config = function()
+      require "custom.plugins.configs.telescope"
+    end,
+    setup = function()
+      require("core.utils").load_mappings "telescope"
+    end,
   },
 
   ["lukas-reineke/indent-blankline.nvim"] = {
@@ -228,7 +190,6 @@ return {
       show_current_context_start = false,
     }
   },
-
 
   ["williamboman/mason.nvim"] = {
     override_options = {

@@ -241,14 +241,14 @@ M.gitsigns = {
 }
 
 
--- M.windows = {
---   n = {
---     ["<C-w>z"] = { "<cmd> WindowsMaximize <CR>", "maximize window"},
---     ["<C-w>_"] = { "<cmd> WindowsMaximizeVertically <CR>", "maximize window vertically"},
---     ["<C-w>|"] = { "<cmd> WindowsMaximizeHorizontally <CR>", "maximize window horizontally"},
---     ["<C-w>="] = { "<cmd> WindowsEqualize <CR>", "equalize windows"},
---   }
--- }
+M.windows = {
+  n = {
+    ["<C-w>z"] = { "<cmd> WindowsMaximize <CR>", "maximize window"},
+    ["<C-w>_"] = { "<cmd> WindowsMaximizeVertically <CR>", "maximize window vertically"},
+    ["<C-w>|"] = { "<cmd> WindowsMaximizeHorizontally <CR>", "maximize window horizontally"},
+    ["<C-w>="] = { "<cmd> WindowsEqualize <CR>", "equalize windows"},
+  }
+}
 
 M.lspconfig = {
   n = {
