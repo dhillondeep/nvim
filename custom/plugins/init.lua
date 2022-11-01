@@ -1,10 +1,14 @@
 return {
-  -- General
+
+  -- Disabled plugins
+  ["windwp/nvim-autopairs"] = false,
+  ["goolord/alpha-nvim"] = false,
+
+  -- Shared dependencies
   ["kkharji/sqlite.lua"] = {},
 
   -- UI
   ["anuvyklack/windows.nvim"] = {
-    -- cmd = { "WindowsMaximize", "WindowsMaximizeVertically", "WindowsMaximizeHorizontally", "WindowsEqualize" },
     requires = {
       { "anuvyklack/middleclass" },
       { "anuvyklack/animation.nvim" },
@@ -78,35 +82,6 @@ return {
       require('lightspeed').setup({})
     end
   },
-
-  -- Modern UI for Neovim
-  ["folke/noice.nvim"] = {
-    requires = {
-      "MunifTanjim/nui.nvim",
-    },
-    config = function()
-      require("noice").setup({
-        notify = {
-          enabled = false,
-        },
-        lsp = {
-          progress = {
-            enabled = false,
-          },
-          hover = {
-            enabled = false,
-          },
-         signature = {
-            enabled = false,
-          },
-        }
-      })
-    end
-  },
-
-  -- disabled plugins
-  ["windwp/nvim-autopairs"] = false,
-  ["goolord/alpha-nvim"] = false,
 
   ["ahmedkhalf/project.nvim"] = {
     config = function ()
@@ -220,6 +195,14 @@ return {
     end
   },
 
+  ["kyazdani42/nvim-web-devicons"] = {
+    after = "ui",
+    module = "nvim-web-devicons",
+    config = function()
+      require("custom.plugins.configs.devicons")
+    end,
+  },
+
   ["stevearc/dressing.nvim"] = {},
 
   ["nvim-telescope/telescope.nvim"] = {
@@ -238,6 +221,22 @@ return {
     end,
     setup = function()
       require("core.utils").load_mappings "telescope"
+    end,
+  },
+
+  ["ibhagwan/fzf-lua"] = {
+    requires = {
+      {
+        "junegunn/fzf",
+        run = "./install --all"
+      },
+    },
+    after = { "fzf", "nvim-web-devicons" },
+    config = function()
+      require("custom.plugins.configs.fzf-lua")
+    end,
+    setup = function()
+      require("core.utils").load_mappings "fzflua"
     end,
   },
 
