@@ -22,33 +22,91 @@ return {
   },
 
   -- Startup and Projects
-
-  ["mhinz/vim-startify"] = {
-    setup = function ()
-      -- custom options
-      vim.g.startify_files_number = 18
-      vim.g.startify_session_persistence = 1
-
-      -- add support for web dev icons
-      function _G.webDevIcons(path)
-        local filename = vim.fn.fnamemodify(path, ':t')
-        local extension = vim.fn.fnamemodify(path, ':e')
-        return require'nvim-web-devicons'.get_icon(filename, extension, { default = true })
-      end
-
-      vim.cmd([[
-        function! StartifyEntryFormat() abort
-          return 'v:lua.webDevIcons(absolute_path) . " " . entry_path'
-        endfunction
-      ]])
-
-      -- update startify lists displayed
-      vim.g.startify_lists = {
-        { type = 'sessions', header = { "Saved Sessions" } },
-        { type = 'dir', header = { "Recently edited files in "..vim.fn.getcwd()..":" } }
-      }
+  --
+  -- Enhance a and i text object operators
+  ["echasnovski/mini.ai"] = {
+    config = function()
+      require('mini.ai').setup()
     end
   },
+
+  -- Highlights the word where cursor is
+  ["echasnovski/mini.cursorword"] = {
+    config = function()
+      require('mini.cursorword').setup()
+    end
+  },
+
+  -- Surrounds word/words with a character
+  -- sa: Surround with some char (normal) saiw", sa$'
+  -- sd: Delete surround char (normal) sd", sd'
+  -- sr: Replace surround char (normal) sr"', sr{[
+  ["echasnovski/mini.surround"] = {
+    config = function()
+      require('mini.surround').setup()
+    end
+  },
+
+  -- Autopairs support
+  ["echasnovski/mini.pairs"] = {
+    config = function()
+      require('mini.pairs').setup()
+    end
+  },
+
+  -- Highlights trailing whitespace
+  ["echasnovski/mini.trailspace"] = {
+    config = function()
+      require('mini.trailspace').setup()
+    end
+  },
+
+  -- Miscellaneous mini function
+  ["echasnovski/mini.misc"] = {
+    config = function()
+      require('mini.misc').setup()
+    end
+  },
+
+  ["ggandor/lightspeed.nvim"] = {
+    setup = function()
+      vim.api.nvim_set_keymap('n', 's', '<Plug>Lightspeed_s', {})
+      vim.api.nvim_set_keymap('n', 'S', '<Plug>Lightspeed_S', {})
+    end,
+
+    config = function()
+      require('lightspeed').setup({})
+    end
+  },
+
+  -- Modern UI for Neovim
+  ["folke/noice.nvim"] = {
+    requires = {
+      "MunifTanjim/nui.nvim",
+    },
+    config = function()
+      require("noice").setup({
+        notify = {
+          enabled = false,
+        },
+        lsp = {
+          progress = {
+            enabled = false,
+          },
+          hover = {
+            enabled = false,
+          },
+         signature = {
+            enabled = false,
+          },
+        }
+      })
+    end
+  },
+
+  -- disabled plugins
+  ["windwp/nvim-autopairs"] = false,
+  ["goolord/alpha-nvim"] = false,
 
   ["ahmedkhalf/project.nvim"] = {
     config = function ()
@@ -87,29 +145,6 @@ return {
 
   ["christoomey/vim-tmux-navigator"] = {},
 
-  ["justinmk/vim-sneak"] = {
-    keys = {"S","s"},
-    setup = function ()
-      vim.g["sneak#label"] = 1
-      vim.g["sneak#use_ic_scs"] = 1
-      vim.g["sneak#s_next"] = 1
-      vim.g["sneak#prompt"] = '🔎 '
-    end
-  },
-
-  ["unblevable/quick-scope"] = {
-    keys = {"F","f", "t", "T"},
-    setup = function ()
-      vim.g["qs_highlight_on_keys"] = {'f', 'F', 't', 'T'}
-      vim.g["qs_max_chars"] = 150
-
-      vim.cmd([[
-        highlight QuickScopePrimary guifg='#00C7DF' gui=underline ctermfg=155 cterm=underline
-        highlight QuickScopeSecondary guifg='#eF5F70' gui=underline ctermfg=81 cterm=underline
-      ]])
-    end
-  },
-
   -- File Mapping, picker, etc
   ["kyazdani42/nvim-tree.lua"] = {
     override_options = {
@@ -143,7 +178,6 @@ return {
           resize_window = false,
           window_picker = {
             exclude = {
-              filetype = { "startify" },
               buftype = { "terminal" },
             }
           }
@@ -166,8 +200,30 @@ return {
     }
   },
 
+  ["olimorris/persisted.nvim"] = {
+    setup = function()
+      vim.o.sessionoptions = "buffers,curdir,folds,winpos,winsize"
+    end,
+
+    config = function()
+      require("persisted").setup({
+        save_dir = vim.fn.expand(vim.fn.stdpath("data") .. "/sessions/"), -- Resolves to ~/.local/share/nvim/sessions/
+        follow_cwd = false,
+        branch_separator = "_",
+        autoload = true,
+
+        after_source = function()
+          -- Reload the LSP servers
+          vim.lsp.stop_client(vim.lsp.get_active_clients())
+        end
+      })
+    end
+  },
+
+  ["stevearc/dressing.nvim"] = {},
+
   ["nvim-telescope/telescope.nvim"] = {
-    -- cmd = "Telescope",
+    cmd = "Telescope",
     requires = {
       {
         "nvim-telescope/telescope-fzf-native.nvim",
@@ -219,14 +275,14 @@ return {
             exec = '<CR>',
         },
         finder_action_keys = {
-            open = '<C-i>',
+            open = '<CR>',
             vsplit = '<C-v>',
             split = '<C-h>',
             tabe = '<C-t>',
             quit = '<esc>',
         },
         definition_action_keys = {
-            edit = '<C-i>',
+            edit = '<CR>',
             vsplit = '<C-v>',
             split = '<C-h>',
             tabe = '<C-t>',
