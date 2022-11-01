@@ -18,7 +18,10 @@ M.disabled = {
     ["<leader>b"] = "",     -- new buffer: not needed
 
     -- Telescope
+    ["<leader>ff"] = "",    -- find files: replaced mapping (custom)
+    ["<leader>fa"] = "",    -- find all: replaced mapping (custom)
     ["<leader>fw"] = "",    -- live grep: replaced mapping (custom)
+    ["<leader>fo"] = "",    -- find oldfiles: replaced mapping (custom)
 
     --tabufline
     ["Bslash"] = "",        -- pick buffer: replaced mapping (custom)
@@ -88,11 +91,17 @@ M.general = {
 
 M.telescope = {
   n = {
-    ["<leader>fg"] = { "<cmd> Telescope live_grep <CR>", "live grep" },
-    ["<leader>fp"] = { "<cmd> Telescope live_grep grep_open_files=true <CR>", "find find in open files" },
-    ["<leader>fl"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "fuzzy find in buffer" },
-    ["<leader>fz"] = { "<cmd> Telescope grep_string <CR>", "live fuzzy find" },
-    ["<leader>fr"] = { "<cmd> Telescope resume <CR>", "resume last picker" },
+    ["<leader>fo"] = { "<cmd> Telescope frecency <CR>", "files history" },
+  }
+}
+
+M.fzflua = {
+  n = {
+    ["<leader>fw"] = { "<cmd> FzfLua live_grep_native <CR>", "live grep (find word)" },
+    ["<leader>ff"] = { "<cmd> FzfLua files <CR>", "find files" },
+    ["<leader>fr"] = { "<cmd> FzfLua resume <CR>", "resume last command" },
+    ["<leader>/"] = { "<cmd> FzfLua lines <CR>", "find lines in all buffers" },
+    ["/"] = { "<cmd> FzfLua blines <CR>", "find lines in buffer" },
   }
 }
 
