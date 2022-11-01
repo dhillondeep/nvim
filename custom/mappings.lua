@@ -57,7 +57,7 @@ M.disabled = {
 
 M.general = {
   n = {
-    -- mappings related to saving and closing files 
+    -- mappings related to saving and closing files
     ["<leader>w"] = { "<cmd> w <CR>", "save file" },
     ["<leader>aw"] = { "<cmd> w <CR>", "save all files" },
     ["<leader>aq"] = { "<cmd> q <CR>", "close all file" },
@@ -69,10 +69,12 @@ M.general = {
 
     -- path related
     ["<leader>pwd"] = { "<cmd> pwd <CR>", "print current working directory"},
+
+    ["<C-f>"] = { "<cmd> lua MiniMisc.zoom() <CR>", "toggle zoom" },
   },
 
   v = {
-    -- mappings related to saving and closing files 
+    -- mappings related to saving and closing files
     ["<leader>w"] = { "<cmd> w <CR>", "save file" },
     ["<leader>aw"] = { "<cmd> w <CR>", "save all files" },
     ["<leader>aq"] = { "<cmd> q <CR>", "close all file" },
@@ -161,6 +163,8 @@ M.nvterm = {
     ["<C-j>"] = { "<C-\\><C-n><C-w>j", "move down"},
     ["<C-k>"] = { "<C-\\><C-n><C-w>k", "move up"},
     ["<leader><esc>"] = { "<C-\\><C-n>", "change to normal mode"},
+
+    ["<C-f>"] = { "<C-\\><C-n>:lua MiniMisc.zoom() <CR> i", "toggle zoom"},
   },
 
   n = {

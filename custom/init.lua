@@ -28,7 +28,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 	end,
 })
 
--- dont list quickfix buffers
+-- dont list terminal buffers
 vim.api.nvim_create_autocmd("BufType", {
   pattern = "terminal",
   callback = function()
