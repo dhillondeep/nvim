@@ -1,7 +1,6 @@
 return {
 
   -- Disabled plugins
-  ["windwp/nvim-autopairs"] = false,
   ["goolord/alpha-nvim"] = false,
 
   -- Shared dependencies
@@ -48,13 +47,6 @@ return {
   ["echasnovski/mini.surround"] = {
     config = function()
       require('mini.surround').setup()
-    end
-  },
-
-  -- Autopairs support
-  ["echasnovski/mini.pairs"] = {
-    config = function()
-      require('mini.pairs').setup()
     end
   },
 
@@ -299,5 +291,24 @@ return {
         },
       })
     end
+  },
+
+  -- Text Editing --
+  ------------------
+
+  ["windwp/nvim-autopairs"] = {
+    override_options = {
+      enable_check_bracket_line = true,
+      fast_wrap = {
+        map = '<M-e>',
+        chars = { '{', '[', '(', '"', "'" },
+        pattern = [=[[%'%"%)%>%]%)%}%,]]=],
+        end_key = '$',
+        keys = 'qwertyuiopzxcvbnmasdfghjkl',
+        check_comma = true,
+        highlight = 'Search',
+        highlight_grey='Comment'
+      },
+    }
   }
 }
