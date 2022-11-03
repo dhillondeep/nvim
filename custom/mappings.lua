@@ -20,6 +20,7 @@ M.disabled = {
     -- Telescope
     ["<leader>ff"] = "",    -- find files: replaced mapping (custom)
     ["<leader>fa"] = "",    -- find all: replaced mapping (custom)
+    ["<leader>fb"] = "",    -- find buffers: replaced mapping (custom)
     ["<leader>fw"] = "",    -- live grep: replaced mapping (custom)
     ["<leader>fo"] = "",    -- find oldfiles: replaced mapping (custom)
 
@@ -86,7 +87,7 @@ M.general = {
     -- mappings related to line movements
     ["<leader>k"] = { "<cmd> m'<-2<CR>gv=gv", "move current line up"},
     ["<leader>j"] = { "<cmd> m'>+<CR>gv=gv", "move current line down"},
-  }
+  },
 }
 
 M.telescope = {
@@ -99,6 +100,7 @@ M.fzflua = {
   n = {
     ["<leader>fw"] = { "<cmd> FzfLua live_grep_native <CR>", "live grep (find word)" },
     ["<leader>ff"] = { "<cmd> FzfLua files <CR>", "find files" },
+    ["<leader>fb"] = { "<cmd> FzfLua buffers <CR>", "find buffers" },
     ["<leader>fr"] = { "<cmd> FzfLua resume <CR>", "resume last command" },
     ["<leader>/"] = { "<cmd> FzfLua lines <CR>", "find lines in all buffers" },
     ["/"] = { "<cmd> FzfLua blines <CR>", "find lines in buffer" },
