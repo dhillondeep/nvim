@@ -64,16 +64,6 @@ return {
     end
   },
 
-  ["ggandor/lightspeed.nvim"] = {
-    setup = function()
-      vim.api.nvim_set_keymap('n', 's', '<Plug>Lightspeed_s', {})
-      vim.api.nvim_set_keymap('n', 'S', '<Plug>Lightspeed_S', {})
-    end,
-
-    config = function()
-      require('lightspeed').setup({})
-    end
-  },
 
   ["ahmedkhalf/project.nvim"] = {
     config = function ()
@@ -109,8 +99,57 @@ return {
   },
 
   -- Motion and Movements
-
   ["christoomey/vim-tmux-navigator"] = {},
+
+  ["ggandor/leap.nvim"] = {
+     config = function()
+      require('leap').add_default_mappings()
+    end
+  },
+
+  ["ggandor/flit.nvim"] = {
+    after = "leap.nvim",
+    config = function()
+      require('flit').setup {
+        keys = { f = 'f', F = 'F', t = 't', T = 'T' },
+        labeled_modes = "nvo",
+        multiline = true,
+        opts = {}
+      }
+    end
+  },
+
+  ["ggandor/leap-spooky.nvim"] = {
+    after = "leap.nvim",
+    config = function ()
+      require('leap-spooky').setup {
+        affixes = {
+          -- These will generate mappings for all native text objects, like:
+          -- (ir|ar|iR|aR|im|am|iM|aM){obj}.
+          -- Special line objects will also be added, by repeating the affixes.
+          -- E.g. `yrr<leap>` and `ymm<leap>` will yank a line in the current
+          -- window.
+          -- You can also use 'rest' & 'move' as mnemonics.
+          remote   = { window = 'r', cross_window = 'R' },
+          magnetic = { window = 'm', cross_window = 'M' },
+        },
+        yank_paste = false,
+      }
+    end
+  },
+
+  ["ggandor/leap-ast.nvim"]  = {
+    setup = function ()
+      vim.keymap.set({'n', 'x', 'o'}, ';', function() require'leap-ast'.leap() end, {})
+    end
+  },
+
+  ["nvim-treesitter/nvim-treesitter-textobjects"] = {
+    after = "nvim-treesitter",
+    config = function ()
+      require('custom.plugins.configs.nvim-treesitter-textobjects')
+    end
+  },
 
   -- File Mapping, picker, etc
   ["kyazdani42/nvim-tree.lua"] = {
@@ -291,6 +330,23 @@ return {
         },
       })
     end
+  },
+
+  ["L3MON4D3/LuaSnip"] = {
+    wants = "friendly-snippets",
+    after = "nvim-cmp",
+    config = function()
+      require("plugins.configs.others").luasnip()
+
+      -- custom mapping for luasnip
+      ls = require("luasnip")
+      vim.cmd [[
+        inoremap <silent> <C-L> <cmd>lua ls.jump(1)<Cr>
+        inoremap <silent> <C-H> <cmd>lua ls.jump(-1)<Cr>
+        snoremap <silent> <C-L> <cmd>lua ls.jump(1)<Cr>
+        snoremap <silent> <C-H> <cmd>lua ls.jump(-1)<Cr>
+      ]]
+    end,
   },
 
   -- Text Editing --
