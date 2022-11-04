@@ -90,6 +90,12 @@ M.general = {
   },
 }
 
+M.trailspace = {
+  n = {
+    ["<leader>ts"] = { "<cmd> lua MiniTrailspace.trim() <CR>", "trim all whitespace"},
+  },
+}
+
 M.telescope = {
   n = {
     ["<leader>fo"] = { "<cmd> Telescope frecency <CR>", "files history" },

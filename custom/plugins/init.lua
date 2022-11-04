@@ -33,13 +33,6 @@ return {
     end
   },
 
-  -- Highlights the word where cursor is
-  ["echasnovski/mini.cursorword"] = {
-    config = function()
-      require('mini.cursorword').setup()
-    end
-  },
-
   -- Surrounds word/words with a character
   -- sa: Surround with some char (normal) saiw", sa$'
   -- sd: Delete surround char (normal) sd", sd'
@@ -52,6 +45,9 @@ return {
 
   -- Highlights trailing whitespace
   ["echasnovski/mini.trailspace"] = {
+    setup = function()
+      require("core.utils").load_mappings "trailspace"
+    end,
     config = function()
       require('mini.trailspace').setup()
     end
@@ -113,7 +109,7 @@ return {
       require('flit').setup {
         keys = { f = 'f', F = 'F', t = 't', T = 'T' },
         labeled_modes = "nvo",
-        multiline = true,
+        multiline = false,
         opts = {}
       }
     end
