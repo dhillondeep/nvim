@@ -1,3 +1,9 @@
+-- disable system clipboard yank
+vim.opt.clipboard = ""
+
+-- set nowrap as default
+vim.opt.wrap = false
+
 -- set relative numbers by default
 vim.opt.rnu = true
 
@@ -16,17 +22,6 @@ vim.cmd([[
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
   augroup END
 ]])
-
--- close NvimTree if it is the last buffer
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-	pattern = { "*" },
-	nested = true,
-	callback = function()
-		if vim.fn.winnr "$" == 1 and vim.fn.bufname() == "NvimTree_" .. vim.fn.tabpagenr() then
-			vim.api.nvim_command ":silent qa!"
-		end
-	end,
-})
 
 -- dont list terminal buffers
 vim.api.nvim_create_autocmd("BufType", {
