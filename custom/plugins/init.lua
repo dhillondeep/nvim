@@ -1,45 +1,43 @@
 return {
 
   -- Disabled plugins
+
   ["goolord/alpha-nvim"] = false,
+  ["kyazdani42/nvim-tree.lua"] = false,
 
   -- Shared dependencies
+
   ["kkharji/sqlite.lua"] = {},
 
   -- UI
-  ["anuvyklack/windows.nvim"] = {
-    requires = {
-      { "anuvyklack/middleclass" },
-      { "anuvyklack/animation.nvim" },
-    },
-    setup = function ()
-      vim.o.winwidth = 10
-      vim.o.winminwidth = 10
-      vim.o.equalalways = false
-
-      require("core.utils").load_mappings "windows"
+  ["kwkarlwang/bufresize.nvim"] = {
+    config = function()
+      local opts = { noremap=true, silent=true }
+      require("bufresize").setup({
+        register = {
+          keys = {
+            { "n", "<C-w>l", "10<C-w><", opts },
+            { "n", "<C-w>h", "10<C-w>>", opts },
+            { "n", "<C-w>j", "5<C-w>+", opts },
+            { "n", "<C-w>k", "5<C-w>-", opts },
+          },
+          trigger_events = { "BufWinEnter", "WinEnter" },
+        },
+        resize = {
+          keys = {},
+          trigger_events = { "VimResized" },
+          increment = 5,
+        },
+      })
     end,
-    config = function ()
-      require("windows").setup()
-    end
   },
 
   -- Startup and Projects
-  --
+
   -- Enhance a and i text object operators
   ["echasnovski/mini.ai"] = {
     config = function()
       require('mini.ai').setup()
-    end
-  },
-
-  -- Surrounds word/words with a character
-  -- sa: Surround with some char (normal) saiw", sa$'
-  -- sd: Delete surround char (normal) sd", sd'
-  -- sr: Replace surround char (normal) sr"', sr{[
-  ["echasnovski/mini.surround"] = {
-    config = function()
-      require('mini.surround').setup()
     end
   },
 
@@ -54,6 +52,7 @@ return {
   },
 
   -- Miscellaneous mini function
+
   ["echasnovski/mini.misc"] = {
     config = function()
       require('mini.misc').setup()
@@ -95,7 +94,12 @@ return {
   },
 
   -- Motion and Movements
-  ["christoomey/vim-tmux-navigator"] = {},
+
+  ["christoomey/vim-tmux-navigator"] = {
+    setup = function ()
+      vim.g.tmux_navigator_disable_when_zoomed = 1
+    end
+  },
 
   ["ggandor/leap.nvim"] = {
      config = function()
@@ -148,58 +152,38 @@ return {
   },
 
   -- File Mapping, picker, etc
-  ["kyazdani42/nvim-tree.lua"] = {
-    override_options = {
-      view = {
-        adaptive_size = false,
-        mappings = {
-          list = {
-            { key = "<CR>", action = "edit_no_picker" },
-            { key = "<BS>", action = "dir_up" },
-            { key = "<ESC>", action = "close" },
-            { key = "N", action = "create" },
-            { key = "c", action = "copy" },
-            { key = "x", action = "cut" },
-            { key = "p", action = "paste" },
-            { key = "r", action = "rename" },
-            { key = "y", action = "copy_absolute_path" },
-            { key = ".", action = "toggle_dotfiles" },
-            { key = "<C-.>", action = "toggle_git_ignored" },
-            { key = "<C-k>", action = "toggle_file_info" },
-            { key = "?", action = "preview" },
-          },
-        },
-      },
-      ignore_ft_on_setup = { "startify" },
-      filters = {
-        dotfiles = true,
-        custom = { "node_modules", ".cache", "bazel-" },
-      },
-      actions = {
-        open_file = {
-          resize_window = false,
-          window_picker = {
-            exclude = {
-              buftype = { "terminal" },
-            }
-          }
-        }
-      },
-      renderer = {
-        special_files = {
-          ["go.mod"] = 1,
-          ["Cargo.toml"] = 1,
-          ["README.md"] = 1,
-          ["Makefile"] = 1,
-          ["BUILD"] = 1,
-          ["MAKEFILE"] = 1,
-          ["composer.json"] = 1,
-          ["package.json"] = 1,
-        },
-        highlight_git = true,
-        highlight_opened_files = "icon",
+
+  ["nvim-neo-tree/neo-tree.nvim"] = {
+    branch = "v2.x",
+    requires = {
+      {"nvim-lua/plenary.nvim"},
+      {"kyazdani42/nvim-web-devicons"}, -- not strictly required, but recommended
+      {"MunifTanjim/nui.nvim"},
+      {
+        "s1n7ax/nvim-window-picker",
+        tag = "v1.*",
+        config = function()
+          require'window-picker'.setup({
+            autoselect_one = true,
+            include_current = true,
+            filter_rules = {
+              bo = {
+                filetype = { 'neo-tree', "neo-tree-popup", "notify" },
+                buftype = { 'terminal', "quickfix" },
+              },
+            },
+            other_win_hl_color = '#e35e4f',
+          })
+        end
       }
-    }
+    },
+    cmd = { "NeoTreeShow", "NeoTreeShowToggle", "NeoTreeFocus" },
+    config = function ()
+      require("custom.plugins.configs.neotree")
+    end,
+    setup = function()
+      require("core.utils").load_mappings "neotree"
+    end,
   },
 
   ["olimorris/persisted.nvim"] = {
@@ -303,14 +287,14 @@ return {
         finder_action_keys = {
             open = '<CR>',
             vsplit = '<C-v>',
-            split = '<C-h>',
+            split = '<C-s>',
             tabe = '<C-t>',
             quit = '<esc>',
         },
         definition_action_keys = {
             edit = '<CR>',
             vsplit = '<C-v>',
-            split = '<C-h>',
+            split = '<C-s>',
             tabe = '<C-t>',
             quit = '<esc>',
         },
@@ -345,8 +329,7 @@ return {
     end,
   },
 
-  -- Text Editing --
-  ------------------
+  -- Text Editing
 
   ["windwp/nvim-autopairs"] = {
     override_options = {

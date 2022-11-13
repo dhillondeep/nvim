@@ -17,12 +17,13 @@ M.disabled = {
     ["<leader>tt"] = "",    -- toggle theme: not needed
     ["<leader>b"] = "",     -- new buffer: not needed
 
-    -- Telescope
+    -- telescope
     ["<leader>ff"] = "",    -- find files: replaced mapping (custom)
     ["<leader>fa"] = "",    -- find all: replaced mapping (custom)
     ["<leader>fb"] = "",    -- find buffers: replaced mapping (custom)
     ["<leader>fw"] = "",    -- live grep: replaced mapping (custom)
     ["<leader>fo"] = "",    -- find oldfiles: replaced mapping (custom)
+    ["<leader>pt"] = "",    -- pick hidden term: replaced mapping (custom)
 
     --tabufline
     ["Bslash"] = "",        -- pick buffer: replaced mapping (custom)
@@ -31,11 +32,11 @@ M.disabled = {
     ["gD"] = "",            -- lsp declaration: replaced mapping (lspsaga)
     ["gd"] = "",            -- lsp definition: replaced mapping (lspsaga)
     ["gi"] = "",            -- lsp implementation: replaced mapping (lspsaga)
+    ["gr"] = "",            -- lsp references: replaced mapping (lspsaga)
     ["<leader>ls"] = "",    -- lsp signature_help: replaced mapping (custom)
     ["<leader>D"] = "",     -- lsp definition type: not needed
     ["<leader>ra"] = "",    -- lsp rename: replaced mapping (custom)
     ["<leader>ca"] = "",    -- lsp code_action: replaced mapping (lspsaga)
-    ["<leader>gr"] = "",    -- lsp references: replaced mapping (lspsaga)
     ["<leader>f"] = "",     -- floating diagnostic: replaced mapping (custom)
     ["d]"] = "",            -- goto_next: replaced mapping (custom)
     ["<leader>q"] = "",     -- diagnostic setloclist: not needed
@@ -49,6 +50,10 @@ M.disabled = {
     ["<A-v>"] = "",         -- toggle vertical term: replaced mapping (custom)
     ["<leader>h"] = "",     -- new horizontal term: replaced mapping (custom)
     ["<leader>v"] = "",     -- new vertical term: replaced mapping (custom)
+
+    -- nvimtree
+    ["<C-n>"] = "",         -- toggle nvimtree
+    ["<leader>e"] = "",     -- focus nvimtree
 
     -- gitsigns
     ["]c"] = "",            -- jump to next hunk: replaced mapping (custom)
@@ -74,7 +79,11 @@ M.general = {
     -- path related
     ["<leader>pwd"] = { "<cmd> pwd <CR>", "print current working directory"},
 
+    -- sizing and zoom
     ["<C-f>"] = { "<cmd> lua MiniMisc.zoom() <CR>", "toggle zoom" },
+
+    -- toggle wrap
+    ["<leader>tw"] = { "<cmd> set wrap! <CR>", "toggle wrap" },
   },
 
   v = {
@@ -90,6 +99,14 @@ M.general = {
   },
 }
 
+M.neotree = {
+  n = {
+    ["<C-n>"] = { "<cmd> NeoTreeShowToggle <CR>", "toggle neotree" },
+    ["<C-m>"] = { "<cmd> NeoTreeFocus <CR>", "focus neotree" },
+    ["<C-s>"] = { "<cmd> NeoTreeShow <CR>", "show neotree" },
+  }
+}
+
 M.trailspace = {
   n = {
     ["<leader>ts"] = { "<cmd> lua MiniTrailspace.trim() <CR>", "trim all whitespace"},
@@ -99,6 +116,7 @@ M.trailspace = {
 M.telescope = {
   n = {
     ["<leader>fo"] = { "<cmd> Telescope frecency <CR>", "files history" },
+    ["<leader>ft"] = { "<cmd> Telescope terms <CR>", "pick hidden term" },
   }
 }
 
@@ -110,12 +128,6 @@ M.fzflua = {
     ["<leader>fr"] = { "<cmd> FzfLua resume <CR>", "resume last command" },
     ["<leader>/"] = { "<cmd> FzfLua lines <CR>", "find lines in all buffers" },
     ["/"] = { "<cmd> FzfLua blines <CR>", "find lines in buffer" },
-  }
-}
-
-M.tabufline = {
-  n = {
-    ["<leader>bp"] = { "<cmd> TbufPick <CR>", "Pick buffer" },
   }
 }
 
@@ -149,7 +161,7 @@ M.lspconfig = {
       function()
         vim.diagnostic.goto_next()
       end,
-      "goto_next",
+      "goto next",
     },
   }
 }
@@ -162,7 +174,7 @@ M.nvterm = {
       end,
       "toggle floating term",
     },
-    ["<leader>tth"] = {
+    ["<leader>tts"] = {
       function()
         require("nvterm.terminal").toggle "horizontal"
       end,
@@ -191,7 +203,7 @@ M.nvterm = {
       end,
       "toggle floating term",
     },
-    ["<leader>tth"] = {
+    ["<leader>tts"] = {
       function()
         require("nvterm.terminal").toggle "horizontal"
       end,
@@ -258,16 +270,6 @@ M.gitsigns = {
       end,
       "Toggle deleted",
     },
-  }
-}
-
-
-M.windows = {
-  n = {
-    ["<C-w>z"] = { "<cmd> WindowsMaximize <CR>", "maximize window"},
-    ["<C-w>_"] = { "<cmd> WindowsMaximizeVertically <CR>", "maximize window vertically"},
-    ["<C-w>|"] = { "<cmd> WindowsMaximizeHorizontally <CR>", "maximize window horizontally"},
-    ["<C-w>="] = { "<cmd> WindowsEqualize <CR>", "equalize windows"},
   }
 }
 

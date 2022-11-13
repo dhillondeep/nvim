@@ -52,7 +52,7 @@ require("fzf-lua").setup({
     actions = {
       ["ctrl-g"]      = { actions.grep_lgrep }
     },
-    continue_last_search  = true,
+    continue_last_search  = false,
     no_header             = true,    -- hide grep|cwd header?
     no_header_i           = true,    -- hide interactive header?
   },
