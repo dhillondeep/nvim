@@ -12,7 +12,7 @@ return {
   -- UI
   ["kwkarlwang/bufresize.nvim"] = {
     config = function()
-      local opts = { noremap=true, silent=true }
+      local opts = { noremap = true, silent = true }
       require("bufresize").setup({
         register = {
           keys = {
@@ -61,7 +61,7 @@ return {
 
 
   ["ahmedkhalf/project.nvim"] = {
-    config = function ()
+    config = function()
       require("project_nvim").setup({
         patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "!node_modules" },
       })
@@ -81,14 +81,14 @@ return {
       {
         "ojroques/vim-oscyank",
         after = "vim-system-copy",
-        setup = function ()
+        setup = function()
           vim.g.oscyank_silent = true
           vim.g.oscyank_term = 'default'
         end
       },
     },
     keys = { "cp", "cP", "cv", "cV" },
-    setup = function ()
+    setup = function()
       vim.g.system_copy_enable_osc52 = 1
     end
   },
@@ -96,13 +96,13 @@ return {
   -- Motion and Movements
 
   ["christoomey/vim-tmux-navigator"] = {
-    setup = function ()
+    setup = function()
       vim.g.tmux_navigator_disable_when_zoomed = 1
     end
   },
 
   ["ggandor/leap.nvim"] = {
-     config = function()
+    config = function()
       require('leap').add_default_mappings()
     end
   },
@@ -121,7 +121,7 @@ return {
 
   ["ggandor/leap-spooky.nvim"] = {
     after = "leap.nvim",
-    config = function ()
+    config = function()
       require('leap-spooky').setup {
         affixes = {
           -- These will generate mappings for all native text objects, like:
@@ -138,32 +138,40 @@ return {
     end
   },
 
-  ["ggandor/leap-ast.nvim"]  = {
-    setup = function ()
-      vim.keymap.set({'n', 'x', 'o'}, ';', function() require'leap-ast'.leap() end, {})
+  ["ggandor/leap-ast.nvim"] = {
+    setup = function()
+      vim.keymap.set({ 'n', 'x', 'o' }, ';', function() require 'leap-ast'.leap() end, {})
     end
   },
 
   ["nvim-treesitter/nvim-treesitter-textobjects"] = {
     after = "nvim-treesitter",
-    config = function ()
+    config = function()
       require('custom.plugins.configs.nvim-treesitter-textobjects')
     end
   },
 
   -- File Mapping, picker, etc
 
+  ["sindrets/diffview.nvim"] = {
+    requires = { "nvim-lua/plenary.nvim", "kyazdani42/nvim-web-devicons" },
+    after = { "plenary.nvim", "nvim-web-devicons" },
+    config = function()
+      require("diffview").setup {}
+    end
+  },
+
   ["nvim-neo-tree/neo-tree.nvim"] = {
     branch = "v2.x",
     requires = {
-      {"nvim-lua/plenary.nvim"},
-      {"kyazdani42/nvim-web-devicons"}, -- not strictly required, but recommended
-      {"MunifTanjim/nui.nvim"},
+      { "nvim-lua/plenary.nvim" },
+      { "kyazdani42/nvim-web-devicons" }, -- not strictly required, but recommended
+      { "MunifTanjim/nui.nvim" },
       {
         "s1n7ax/nvim-window-picker",
         tag = "v1.*",
         config = function()
-          require'window-picker'.setup({
+          require 'window-picker'.setup({
             autoselect_one = true,
             include_current = true,
             filter_rules = {
@@ -178,7 +186,7 @@ return {
       }
     },
     cmd = { "NeoTreeShow", "NeoTreeRevealToggle", "NeoTreeFocus" },
-    config = function ()
+    config = function()
       require("custom.plugins.configs.neotree")
     end,
     setup = function()
@@ -271,41 +279,41 @@ return {
 
   ["glepnir/lspsaga.nvim"] = {
     branch = "main",
-    setup = function ()
+    setup = function()
       require("core.utils").load_mappings "lspsaga"
     end,
-    config = function ()
+    config = function()
       local saga = require("lspsaga")
 
       saga.init_lsp_saga({
         border_style = 'single',
         code_action_keys = {
-            quit = '<esc>',
-            exec = '<CR>',
+          quit = '<esc>',
+          exec = '<CR>',
         },
         finder_action_keys = {
-            open = '<CR>',
-            vsplit = '<C-v>',
-            split = '<C-s>',
-            tabe = '<C-t>',
-            quit = '<esc>',
+          open = '<CR>',
+          vsplit = '<C-v>',
+          split = '<C-s>',
+          tabe = '<C-t>',
+          quit = '<esc>',
         },
         definition_action_keys = {
-            edit = '<CR>',
-            vsplit = '<C-v>',
-            split = '<C-s>',
-            tabe = '<C-t>',
-            quit = '<esc>',
+          edit = '<CR>',
+          vsplit = '<C-v>',
+          split = '<C-s>',
+          tabe = '<C-t>',
+          quit = '<esc>',
         },
         rename_action_quit = '<esc>',
         code_action_lightbulb = {
-            enable = true,
-            enable_in_insert = false,
-            cache_code_action = true,
-            sign = false,
-            update_time = 150,
-            sign_priority = 20,
-            virtual_text = false,
+          enable = true,
+          enable_in_insert = false,
+          cache_code_action = true,
+          sign = false,
+          update_time = 150,
+          sign_priority = 20,
+          virtual_text = false,
         },
       })
     end
@@ -341,7 +349,7 @@ return {
         keys = 'qwertyuiopzxcvbnmasdfghjkl',
         check_comma = true,
         highlight = 'Search',
-        highlight_grey='Comment'
+        highlight_grey = 'Comment'
       },
     }
   }
