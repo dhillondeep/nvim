@@ -1,7 +1,12 @@
 local actions = require "fzf-lua.actions"
 
+local bat_args = os.getenv("BAT_ARGS") or "--style=numbers,changes --color always"
+local bat_theme = os.getenv("BAT_THEME") or "Coldark-Dark"
+local fd_opts = os.getenv("FD_OPTS") or "--color=never --type f --hidden --follow --exclude .git"
+local rg_opts = os.getenv("RG_OPTS") or "--column --line-number --no-heading --color=always --smart-case --max-columns=512"
+
 require("fzf-lua").setup({
-  winopts = {
+    winopts = {
     height           = 0.87,            -- window height
     width            = 0.80,            -- window width
     preview = {
@@ -32,13 +37,13 @@ require("fzf-lua").setup({
   previewers = {
     bat = {
       cmd             = "bat",
-      args            = os.getenv("BAT_ARGS"),
-      theme           = os.getenv("BAT_THEME"),
+      args            = bat_args,
+      theme           = bat_theme,
     },
   },
   files = {
     prompt            = 'Files❯   ',
-    fd_opts           = os.getenv("FD_OPTS") .. " --type f --type s",
+    fd_opts           = fd_opts .. " --type f --type s",
   },
   lines = {
     prompt            = 'Lines❯   ',
@@ -48,7 +53,7 @@ require("fzf-lua").setup({
   },
   grep = {
     prompt            = 'Search❯   ',
-    rg_opts           = os.getenv("RG_OPTS"),
+    rg_opts           = rg_opts,
     actions = {
       ["ctrl-g"]      = { actions.grep_lgrep }
     },
