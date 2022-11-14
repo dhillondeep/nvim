@@ -177,7 +177,7 @@ return {
         end
       }
     },
-    cmd = { "NeoTreeShow", "NeoTreeShowToggle", "NeoTreeFocus" },
+    cmd = { "NeoTreeShow", "NeoTreeRevealToggle", "NeoTreeFocus" },
     config = function ()
       require("custom.plugins.configs.neotree")
     end,
@@ -257,13 +257,12 @@ return {
     }
   },
 
-  ["williamboman/mason.nvim"] = {
-    override_options = {
-      ensure_installed = { "gopls", "vim-language-server", "json-lsp", "yaml-language-server" }
-    }
+  ["williamboman/mason-lspconfig.nvim"] = {
+    after = { "mason.nvim" },
   },
 
   ["neovim/nvim-lspconfig"] = {
+    after = { "mason-lspconfig.nvim" },
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.plugins.configs.lspconfig"
