@@ -266,14 +266,20 @@ return {
   },
 
   ["williamboman/mason-lspconfig.nvim"] = {
-    after = { "mason.nvim" },
+    after = "mason.nvim",
+    config = function()
+      local lspservers = require("custom.plugins.configs.config").lspservers()
+      require("custom.plugins.configs.mason-lspconfig").setup(lspservers)
+    end
   },
 
   ["neovim/nvim-lspconfig"] = {
     after = { "mason-lspconfig.nvim" },
     config = function()
       require "plugins.configs.lspconfig"
-      require "custom.plugins.configs.lspconfig"
+
+      local lspservers = require("custom.plugins.configs.config").lspservers()
+      require("custom.plugins.configs.lspconfig").setup(lspservers)
     end,
   },
 
