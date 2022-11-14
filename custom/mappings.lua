@@ -101,7 +101,7 @@ M.general = {
 
 M.neotree = {
   n = {
-    ["<C-n>"] = { "<cmd> NeoTreeShowToggle <CR>", "toggle neotree" },
+    ["<C-n>"] = { "<cmd> NeoTreeRevealToggle <CR>", "toggle neotree" },
     ["<C-m>"] = { "<cmd> NeoTreeFocus <CR>", "focus neotree" },
     ["<C-s>"] = { "<cmd> NeoTreeShow <CR>", "show neotree" },
   }
