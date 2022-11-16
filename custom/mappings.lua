@@ -38,6 +38,7 @@ M.disabled = {
     ["<leader>ra"] = "", -- lsp rename: replaced mapping (custom)
     ["<leader>ca"] = "", -- lsp code_action: replaced mapping (lspsaga)
     ["<leader>f"] = "", -- floating diagnostic: replaced mapping (custom)
+    ["[d"] = "", -- goto_prev: replaced mapping (custom)
     ["d]"] = "", -- goto_next: replaced mapping (custom)
     ["<leader>q"] = "", -- diagnostic setloclist: not needed
     ["<leader>wa"] = "", -- add workspace folder: not needed
@@ -68,9 +69,9 @@ M.general = {
   n = {
     -- mappings related to saving and closing files
     ["<leader>w"] = { "<cmd> w <CR>", "save file" },
-    ["<leader>aw"] = { "<cmd> w <CR>", "save all files" },
-    ["<leader>aq"] = { "<cmd> q <CR>", "close all file" },
+    ["<leader>wa"] = { "<cmd> wa <CR>", "save all files" },
     ["<leader>q"] = { "<cmd> q <CR>", "close file" },
+    ["<leader>qa"] = { "<cmd> q <CR>", "close all file" },
 
     -- mappings related to line movements
     ["<leader>k"] = { "<cmd> m-2 <CR>", "move current line up" },
@@ -102,8 +103,7 @@ M.general = {
 M.neotree = {
   n = {
     ["<C-n>"] = { "<cmd> NeoTreeRevealToggle <CR>", "toggle neotree" },
-    ["<C-m>"] = { "<cmd> NeoTreeFocus <CR>", "focus neotree" },
-    ["<C-s>"] = { "<cmd> NeoTreeShow <CR>", "show neotree" },
+    ["<C-s>"] = { "<cmd> NeoTreeFocus <CR>", "focus neotree" },
   }
 }
 
@@ -111,13 +111,6 @@ M.trailspace = {
   n = {
     ["<leader>ts"] = { "<cmd> lua MiniTrailspace.trim() <CR>", "trim all whitespace" },
   },
-}
-
-M.telescope = {
-  n = {
-    ["<leader>fo"] = { "<cmd> Telescope frecency <CR>", "files history" },
-    ["<leader>ft"] = { "<cmd> Telescope terms <CR>", "pick hidden term" },
-  }
 }
 
 M.fzflua = {
@@ -128,12 +121,6 @@ M.fzflua = {
     ["<leader>fr"] = { "<cmd> FzfLua resume <CR>", "resume last command" },
     ["<leader>/"] = { "<cmd> FzfLua lines <CR>", "find lines in all buffers" },
     ["/"] = { "<cmd> FzfLua blines <CR>", "find lines in buffer" },
-  }
-}
-
-M.lspconfig = {
-  n = {
-
   }
 }
 

@@ -9,7 +9,7 @@ vim.cmd([[
 ]])
 
 -- Timings
-vim.opt.timeoutlen = 500 -- time out on mappings
+vim.opt.timeoutlen = 300 -- time out on mappings
 vim.opt.ttimeoutlen = 10 -- time out on key codes
 vim.opt.updatetime = 200 -- idle time to write swap and trigger CursorHold
 vim.opt.redrawtime = 1500 -- time in milliseconds for stopping display redraw

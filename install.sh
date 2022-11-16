@@ -5,7 +5,7 @@ NVIM_BK_CONFIG_PATH="$NVIM_CONFIG_PATH.bk"
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # make copy of current nvim configuration
-if [ -d $NVIM_CONFIG_PATH ] 
+if [ -d $NVIM_CONFIG_PATH ]
 then
   rm -rf $NVIM_BK_CONFIG_PATH
   mv $NVIM_CONFIG_PATH $NVIM_BK_CONFIG_PATH
