@@ -13,13 +13,27 @@ local local_on_attach = function(client, bufnr)
   client.server_capabilities.documentRangeFormattingProvider = true
 end
 
+local function set_sumneko_lua_opts(opts)
+  opts.settings = {
+    Lua = {
+      diagnostics = { globals = { "vim" } }
+    }
+  }
+
+  return opts
+end
+
 function lspconfig.setup(servers)
   -- setup lsp servers
   for _, lsp in ipairs(servers) do
-    conf[lsp].setup {
+    local opts = {
       on_attach = local_on_attach,
       capabilities = capabilities,
     }
+    if lsp == "sumneko_lua" then
+      opts = set_sumneko_lua_opts(opts)
+    end
+    conf[lsp].setup(opts)
   end
 end
 
