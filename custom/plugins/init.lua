@@ -292,7 +292,6 @@ return {
       local saga = require("lspsaga")
 
       saga.init_lsp_saga({
-        border_style = 'single',
         code_action_keys = {
           quit = '<esc>',
           exec = '<CR>',
