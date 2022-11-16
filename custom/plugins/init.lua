@@ -195,6 +195,25 @@ return {
     end
   },
 
+  ["hrsh7th/nvim-cmp"] = {
+    override_options = {
+      sources = {
+        {
+          name = "buffer",
+          option = {
+            get_bufnrs = function()
+              local bufs = {}
+              for _, win in ipairs(vim.api.nvim_list_wins()) do
+                bufs[vim.api.nvim_win_get_buf(win)] = true
+              end
+              return vim.tbl_keys(bufs)
+            end
+          },
+        },
+      },
+    },
+  },
+
   ["L3MON4D3/LuaSnip"] = {
     wants = "friendly-snippets",
     after = "nvim-cmp",
@@ -202,7 +221,7 @@ return {
       require("plugins.configs.others").luasnip()
 
       -- custom mapping for luasnip
-      ls = require("luasnip")
+      local ls = require("luasnip")
       vim.cmd [[
         inoremap <silent> <C-L> <cmd>lua ls.jump(1)<Cr>
         inoremap <silent> <C-H> <cmd>lua ls.jump(-1)<Cr>
