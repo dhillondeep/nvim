@@ -27,13 +27,6 @@ vim.opt.clipboard = "" -- disable system clipboard for yank
 -- Editor UI
 vim.opt.lazyredraw = true -- don't redraw while executing macros (good performance config)
 vim.opt.rnu = true -- set relative numbers by default
-vim.opt.scrolloff = 2 -- keep at least 2 lines above/below
-vim.opt.sidescrolloff = 5 -- keep at least 5 lines left/right
-vim.opt.winminwidth = 10 -- minimum width for inactive windows
-vim.opt.winminheight = 1 -- minimum height for inactive window
-vim.opt.pumheight = 15 -- pop-up menu's line height
-vim.opt.helpheight = 12 -- minimum help window height
-vim.opt.previewheight = 12 -- completion preview height
 
 -- start from the same line when left
 vim.cmd([[
