@@ -17,6 +17,9 @@ require("neo-tree").setup({
     statusline = false
   },
   default_component_configs = {
+    container = {
+      enable_character_fade = false
+    },
     modified = {
       symbol = "+",
     },
@@ -51,6 +54,7 @@ require("neo-tree").setup({
     follow_current_file = true,
   },
   window = {
+    width = "25%",
     mappings = {
       ["w"] = "none",
       ["S"] = "none",
@@ -88,7 +92,7 @@ require("neo-tree").setup({
     {
       event = "neo_tree_window_after_open",
       handler = function()
-        require("bufresize").resize()
+        vim.cmd("wincmd =")
       end
     },
     {

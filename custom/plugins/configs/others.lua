@@ -2,22 +2,22 @@ local others = {}
 
 function others.bufresize()
   local opts = { noremap = true, silent = true }
-  require("bufresize").setup({
-    register = {
-      keys = {
-        { "n", "<C-w>l", "10<C-w><", opts },
-        { "n", "<C-w>h", "10<C-w>>", opts },
-        { "n", "<C-w>j", "5<C-w>+", opts },
-        { "n", "<C-w>k", "5<C-w>-", opts },
-      },
-      trigger_events = { "BufWinEnter", "WinEnter" },
-    },
-    resize = {
-      keys = {},
-      trigger_events = { "VimResized" },
-      increment = 5,
-    },
-  })
+  vim.api.nvim_set_keymap("n", "<C-w>h", "10<C-w>< <cmd>lua require('bufresize').register()<cr>", opts)
+  vim.api.nvim_set_keymap("n", "<C-w>l", "10<C-w>> <cmd>lua require('bufresize').register()<cr>", opts)
+  vim.api.nvim_set_keymap("n", "<C-w>k", "5<C-w>+ <cmd>lua require('bufresize').register()<cr>", opts)
+  vim.api.nvim_set_keymap("n", "<C-w>j", "5<C-w>- <cmd>lua require('bufresize').register()<cr>", opts)
+  vim.cmd([[
+    augroup Resize
+        autocmd!
+        autocmd VimResized * lua require('bufresize').resize()
+    augroup END
+  ]])
+  vim.cmd([[
+    augroup Register
+        autocmd!
+        autocmd BufWinEnter * if !(&ft ==? "neo-tree") | execute "lua require('bufresize').register()" | endif
+    augroup END
+  ]])
 end
 
 function others.project()
