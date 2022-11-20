@@ -1,0 +1,6 @@
+--
+-- local present, _ = pcall(require, "./utils/init.lua")
+-- print(present)
+-- utils.setup_env()
+--
+-- print("hi" .. deepvim.get_icon("FolderClosed"))
