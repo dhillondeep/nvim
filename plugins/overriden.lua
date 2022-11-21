@@ -17,7 +17,6 @@ return {
     setup = function()
       require("core.lazy_load").on_file_open "nvim-lspconfig"
     end,
-    after = { "SchemaStore.nvim" },
     config = function()
       require("custom.plugins.configs.lspconfig")
     end,

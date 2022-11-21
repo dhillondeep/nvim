@@ -1,8 +1,7 @@
-local servers = require("custom.plugins.configs.lspservers")
-
+local servers = deepvim.lspservers()
 local server_names = {}
-for server_name, _ in pairs(servers) do
-  table.insert(server_names, server_name)
+for name, _ in pairs(servers) do
+  table.insert(server_names, name)
 end
 
 return {

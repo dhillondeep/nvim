@@ -1,5 +1,5 @@
-_G.deepvim = {}
-require("custom.utils")
+-- loads custom config (deepvim)
+require("custom.config")
 
 local M = {}
 

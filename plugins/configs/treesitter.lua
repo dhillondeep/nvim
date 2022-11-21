@@ -1,7 +1,8 @@
+conf = deepvim.treesitter()
+
 return {
     override_options = {
-      ensure_installed = { "lua", "go", "cpp", "c", "bash", "json", "json5", "gomod", "gowork", "yaml" },
-
+      ensure_installed = conf.languages,
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
@@ -12,7 +13,7 @@ return {
       },
       rainbow = {
         enable = true,
-        disable = { "html" },
+        disable = conf.rainbow.disable,
         extended_mode = false,
         max_file_lines = nil,
       },
