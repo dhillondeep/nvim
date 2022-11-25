@@ -1,5 +1,10 @@
 return {
-  "goolord/alpha-nvim", -- replaced with mini.starter
+  -- Replaced in favour of mini.starter
+  "goolord/alpha-nvim",
+
+  -- Replaced in favour of neo-tree file manager
   "kyazdani42/nvim-tree.lua", -- replaced with neo-tree
-  "NvChad/nvterm", -- replaced with toggleterm
+
+  -- Replaced in favour of toggleterm
+  "NvChad/nvterm",
 }

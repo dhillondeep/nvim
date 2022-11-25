@@ -1,7 +1,8 @@
--- configure lsp servers
-function deepvim.lspservers()
+local cfg = {}
+
+--- Configurations for lspservers
+function cfg.lspservers()
   return {
-    ["gopls"] = {},
     ["sumneko_lua"] = {
       Lua = {
         diagnostics = {
@@ -23,15 +24,11 @@ function deepvim.lspservers()
         validate = { enable = true },
       },
     },
-    ["yamlls"] = {},
-    ["vimls"] = {},
-    ["dockerls"] = {},
-    ["bashls"] = {},
-    ["kotlin_language_server"] = {},
   }
 end
 
-function deepvim.nullls_sources(nullls)
+--- Configuration for null-ls sources
+function cfg.nullls_sources(nullls)
   return {
     nullls.builtins.formatting.stylua,
     nullls.builtins.formatting.jq,
@@ -39,17 +36,4 @@ function deepvim.nullls_sources(nullls)
   }
 end
 
-function deepvim.toggle_autopairs()
-  local ok, autopairs = pcall(require, "nvim-autopairs")
-  if ok then
-    if autopairs.state.disabled then
-      autopairs.enable()
-    else
-      autopairs.disable()
-    end
-    vim.g.autopairs_enabled = autopairs.state.disabled
-    deepvim.ui_notify(string.format("autopairs %s", deepvim.bool2str(not autopairs.state.disabled)))
-  else
-    deepvim.ui_notify "autopairs not available"
-  end
-end
+deepvim.cfg = cfg

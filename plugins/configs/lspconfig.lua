@@ -2,14 +2,8 @@ local present, lspconfig = pcall(require, "lspconfig")
 if not present then
 	return
 end
-
-local present, nullls = pcall(require, "null-ls")
-if not present then
-	return
-end
-
-local present, cmp = pcall(require, "cmp_nvim_lsp")
-if not present then
+local present2, nullls = pcall(require, "null-ls")
+if not present2 then
 	return
 end
 
@@ -61,16 +55,18 @@ capabilities.textDocument.completion.completionItem = {
 -- setup null-ls
 nullls.setup({
 	on_attach = on_attach,
-	sources = deepvim.nullls_sources(nullls),
+	sources = deepvim.cfg.nullls_sources(nullls),
 })
 
-for server, config in pairs(deepvim.lspservers()) do
+local servers_cfgs = deepvim.cfg.lspservers()
+for _, server in ipairs(deepvim.opts.lsp.servers) do
 	-- setup lsp servers
 	local opts = {
 		on_attach = on_attach,
 		capabilities = capabilities,
 	}
-	if next(config) ~= nil then
+	local config = servers_cfgs[server]
+	if config ~= nil then
 		opts.settings = config
 	end
 	lspconfig[server].setup(opts)

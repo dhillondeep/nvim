@@ -11,31 +11,31 @@ require("neo-tree").setup({
         winbar = true,
         content_layout = "center",
         tab_labels = {
-            filesystem = deepvim.get_icon("FolderClosed") .. " File",
-            buffers = deepvim.get_icon("DefaultFile") .. " Bufs",
-            git_status = deepvim.get_icon("Git") .. " Git",
-            diagnostics = deepvim.get_icon("Diagnostic") .. " Diagnostic",
+            filesystem = deepvim.utils.get_icon("FolderClosed") .. " File",
+            buffers = deepvim.utils.get_icon("DefaultFile") .. " Bufs",
+            git_status = deepvim.utils.get_icon("Git") .. " Git",
+            diagnostics = deepvim.utils.get_icon("Diagnostic") .. " Diagnostic",
         },
     },
     default_component_configs = {
         indent = { padding = 0 },
         icon = {
-            folder_closed = deepvim.get_icon("FolderClosed"),
-            folder_open = deepvim.get_icon("FolderOpen"),
-            folder_empty = deepvim.get_icon("FolderEmpty"),
-            default = deepvim.get_icon("DefaultFile"),
+            folder_closed = deepvim.utils.get_icon("FolderClosed"),
+            folder_open = deepvim.utils.get_icon("FolderOpen"),
+            folder_empty = deepvim.utils.get_icon("FolderEmpty"),
+            default = deepvim.utils.get_icon("DefaultFile"),
         },
         git_status = {
             symbols = {
-                added = deepvim.get_icon("GitAdd"),
-                deleted = deepvim.get_icon("GitDelete"),
-                modified = deepvim.get_icon("GitChange"),
-                renamed = deepvim.get_icon("GitRenamed"),
-                untracked = deepvim.get_icon("GitUntracked"),
-                ignored = deepvim.get_icon("GitIgnored"),
-                unstaged = deepvim.get_icon("GitUnstaged"),
-                staged = deepvim.get_icon("GitStaged"),
-                conflict = deepvim.get_icon("GitConflict"),
+                added = deepvim.utils.get_icon("GitAdd"),
+                deleted = deepvim.utils.get_icon("GitDelete"),
+                modified = deepvim.utils.get_icon("GitChange"),
+                renamed = deepvim.utils.get_icon("GitRenamed"),
+                untracked = deepvim.utils.get_icon("GitUntracked"),
+                ignored = deepvim.utils.get_icon("GitIgnored"),
+                unstaged = deepvim.utils.get_icon("GitUnstaged"),
+                staged = deepvim.utils.get_icon("GitStaged"),
+                conflict = deepvim.utils.get_icon("GitConflict"),
             },
         },
     },
@@ -71,7 +71,7 @@ require("neo-tree").setup({
             ["P"] = function(state)
                 local node = state.tree:get_node()
                 require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
-              end,
+            end,
         },
     },
     follow_current_file = true,
@@ -92,7 +92,7 @@ require("neo-tree").setup({
         {
             event = "neo_tree_window_before_open",
             handler = function()
-                -- require("bufresize").register()
+                 require("bufresize").register()
             end,
         },
         {
@@ -104,7 +104,7 @@ require("neo-tree").setup({
         {
             event = "neo_tree_window_after_close",
             handler = function()
-                -- require("bufresize").resize()
+                require("bufresize").resize()
             end,
         },
     },

@@ -1,11 +1,37 @@
--- deepvim specific options
+--- Options to configure various functionalities and properties
 deepvim.opts = {
+  ui_notifications_enabled = true,
+  dim_inactive_windows = true,
   icons = true,
+  lsp = {
+    servers = {
+      "gopls",
+      "sumneko_lua",
+      "jsonls",
+      "yamlls",
+      "vimls",
+      "dockerls",
+      "bashls",
+      "kotlin_language_server",
+    },
+  },
   treesitter = {
-    languages = { "lua", "go", "cpp", "c", "bash", "json", "json5", "gomod", "gowork", "yaml", "html" },
+    languages = {
+      "lua",
+      "go",
+      "cpp",
+      "c",
+      "bash",
+      "json",
+      "json5",
+      "gomod",
+      "gowork",
+      "yaml",
+      "html",
+    },
     rainbow_disable = { "html" },
   },
-  autopairs_enabled =  true,
+  autopairs_enabled = true,
 }
 
 -- vim optionss
@@ -28,7 +54,7 @@ deepvim.vim_opts = {
     preserveindent = true, -- Preserve indent structure as much as possible
     pumheight = 10, -- Height of the pop up menu
     relativenumber = true, -- Show relative numberline
-    scrolloff = 8, -- Number of lines to keep above and below the cursor
+    scrolloff = 2, -- Number of lines to keep above and below the cursor
     shiftwidth = 2, -- Number of space inserted for indentation
     shortmess = vim.opt.shortmess + { s = true, I = true },
     showmode = false, -- Disable showing modes in command line

@@ -1,5 +1,4 @@
-local lazy = require("custom.lazy")
-local constants = lazy.require("custom.constants")
+local constants = deepvim.constants
 local colors = require("base46").get_theme_tb("base_30")
 
 -- color palettes set using base46 colors

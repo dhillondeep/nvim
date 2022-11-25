@@ -2,9 +2,11 @@
 _G.deepvim = {}
 
 -- load global configurations
+require("custom.constants")
 require("custom.options")
 require("custom.config")
 require("custom.utils")
+require("custom.utils.functions")
 
 local M = {}
 

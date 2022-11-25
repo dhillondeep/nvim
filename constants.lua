@@ -1,9 +1,5 @@
-local M = {}
----------------------------------------------------------------------------//
--- Constants
----------------------------------------------------------------------------//
-M.padding = " "
-
-M.ELLIPSIS = "…"
-
-return M
+--- Constants to be used throughout the codebase
+deepvim.constants = {
+  padding = " ",
+  ELLIPSIS = "…",
+}
