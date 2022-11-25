@@ -5,12 +5,30 @@ for scope, table in pairs(deepvim.vim_opts) do
   end
 end
 
--- disable comment-continuation
+--- Dim inactive window
+if deepvim.opts.dim_inactive_windows then
+  local colors = require("base46").get_theme_tb("base_30")
+  vim.api.nvim_set_hl(0, "InactiveWindow", {
+    bg = colors.statusline_bg,
+  })
+
+  vim.api.nvim_create_autocmd("WinEnter", {
+    pattern = "*",
+    callback = function()
+      vim.cmd([[
+      setlocal winhighlight=Normal:Normal,NormalNC:InactiveWindow
+    ]] )
+    end,
+    desc = "Dim inactive window",
+  })
+end
+
+--- Disable comment-continuation
 vim.cmd([[
   autocmd FileType * set formatoptions-=cro
 ]])
 
--- start from the same line when left
+--- Start from the same line when left
 vim.cmd([[
   if has("autocmd")
     au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
@@ -25,7 +43,7 @@ vim.cmd([[
 		\| endif
 ]])
 
--- highlight yanks
+--- Highlight yanks
 vim.cmd([[
   augroup highlight_yank
     autocmd!
@@ -33,9 +51,8 @@ vim.cmd([[
   augroup END
 ]])
 
--- automatically set read-only for files being edited elsewhere
+--- Automatically set read-only for files being edited elsewhere
 vim.cmd([[
   " automatically set read-only for files being edited elsewhere
 	autocmd SwapExists * nested let v:swapchoice = 'o'
 ]])
-
