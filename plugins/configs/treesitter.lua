@@ -1,8 +1,8 @@
-conf = deepvim.treesitter()
+local opts = deepvim.opts.treesitter
 
 return {
     override_options = {
-      ensure_installed = conf.languages,
+      ensure_installed = opts.languages,
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
@@ -13,7 +13,7 @@ return {
       },
       rainbow = {
         enable = true,
-        disable = conf.rainbow.disable,
+        disable = opts.rainbow_disable,
         extended_mode = false,
         max_file_lines = nil,
       },

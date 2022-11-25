@@ -8,5 +8,18 @@ return {
 
     --tabufline
     ["Bslash"] = "", -- pick buffer: replaced mapping (custom)
+
+    --telescope
+    ["<leader>ff"] = "",
+    ["<leader>fa"] = "",
+    ["<leader>fw"] = "",
+    ["<leader>fb"] = "",
+    ["<leader>fh"] = "",
+    ["<leader>fo"] = "",
+    ["<leader>tk"] = "",
+    ["<leader>cm"] = "",
+    ["<leader>gt"] = "",
+    ["<leader>pt"] = "",
+    ["<leader>th"] = "",
   }
 }

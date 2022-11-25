@@ -1,5 +1,10 @@
--- loads custom config (deepvim)
+-- global configuration
+_G.deepvim = {}
+
+-- load global configurations
+require("custom.options")
 require("custom.config")
+require("custom.utils")
 
 local M = {}
 
