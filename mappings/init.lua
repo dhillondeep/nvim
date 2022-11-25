@@ -12,6 +12,7 @@ M.general = {
     ["<leader>qa"] = { "<cmd>q<cr>", "Close all files" },
     ["<C-s>"] = { "<cmd>w!<cr>", "Force write" },
     ["<C-q>"] = { "<cmd>q!<cr>", "Force quit" },
+    ["<esc>"] = { "<cmd>noh<cr>", "Disable highlight on esc" },
   },
 }
 
@@ -44,7 +45,12 @@ M.toggleterm = {
   },
 
   n = {
-    ["<leader>tl"] = { "<cmd>lua deepvim.toggle_term_cmd('lazygit')<cr>", "ToggleTerm lazygit" },
+    ["<leader>tl"] = {
+      function()
+        deepvim.fn.toggle_term_cmd("lazygit")
+      end,
+      "ToggleTerm lazygit",
+    },
     ["<leader>tf"] = { "<cmd>ToggleTerm direction=float<cr>", "ToggleTerm float" },
     ["<leader>th"] = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "ToggleTerm horizontal split" },
     ["<leader>tv"] = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "ToggleTerm vertical split" },
@@ -54,12 +60,42 @@ M.toggleterm = {
 -- Gitstatus
 M.gitstatus = {
   n = {
-    ["[g"] = { "<cmd>lua require('gitsigns').prev_hunk()<cr>", "Prev git hunk" },
-    ["]g"] = { "<cmd>lua require('gitsigns').next_hunk()<cr>", "Next git hunk" },
-    ["<leader>gl"] = { "<cmd>lua require('gitsigns').blame_line()<cr>", "View git blame" },
-    ["<leader>gp"] = { "<cmd>lua require('gitsigns').preview_hunk()<cr>", "Preview git blame" },
-    ["<leader>gr"] = { "<cmd>lua require('gitsigns').reset_hunk()<cr>", "Reset git blame" },
-    ["<leader>gd"] = { "<cmd>lua require('gitsigns').diffthis()<cr>", "View git diff" },
+    ["[g"] = {
+      function()
+        require("gitsigns").prev_hunk()
+      end,
+      "Prev git hunk",
+    },
+    ["]g"] = {
+      function()
+        require("gitsigns").next_hunk()
+      end,
+      "Next git hunk",
+    },
+    ["<leader>gl"] = {
+      function()
+        require("gitsigns").blame_line()
+      end,
+      "View git blame",
+    },
+    ["<leader>gp"] = {
+      function()
+        require("gitsigns").preview_hunk()
+      end,
+      "Preview git blame",
+    },
+    ["<leader>gr"] = {
+      function()
+        require("gitsigns").reset_hunk()
+      end,
+      "Reset git blame",
+    },
+    ["<leader>gd"] = {
+      function()
+        require("gitsigns").diffthis()
+      end,
+      "View git diff",
+    },
   },
 }
 
@@ -77,17 +113,26 @@ M.fzflua = {
 M.telescope = {
   n = {
     ["<leader>fw"] = {
-      "<cmd> lua require('telescope').extensions.live_grep_args.live_grep_args() <CR>",
+      function()
+        require("telescope").extensions.live_grep_args.live_grep_args()
+      end,
       "Live grep (find word)",
     },
     ["<leader>ff"] = { "<cmd> Telescope find_files <CR>", "Find files" },
     ["<leader>fb"] = {
-      "<cmd> lua require('telescope.builtin').buffers({sort_mru=true, ignore_current_buffer=true}) <CR>",
+      function()
+        require("telescope.builtin").buffers({ sort_mru = true, ignore_current_buffer = true })
+      end,
       "Find buffers",
     },
     ["<leader>fm"] = { "<cmd> Telescope marks<cr>", "Find marks" },
     ["<leader>fo"] = { "<cmd> Telescope oldfiles<cr>", "Find old files" },
-    ["<leader>fp"] = { "<cmd> lua require('telescope').extensions.projects.projects() <CR>", "Find projects" },
+    ["<leader>fp"] = {
+      function()
+        require("telescope").extensions.projects.projects()
+      end,
+      "Find projects",
+    },
     ["<leader>fr"] = { "<cmd> Telescope resume <CR>", "Resume last telescope command" },
 
     ["<leader>gt"] = { "<cmd> Telescope git_status <cr>", "Git status" },
@@ -107,16 +152,25 @@ M.telescope = {
 
 M.smart_splits = {
   n = {
-    ["<S-h>"] = { "<cmd> lua require('smart-splits').resize_left() <cr>", "Resize window left" },
-    ["<S-l>"] = { "<cmd> lua require('smart-splits').resize_right() <cr>", "Resize window right" },
-    ["<S-k>"] = { "<cmd> lua require('smart-splits').resize_up() <cr>", "Resize window up" },
-    ["<S-j>"] = { "<cmd> lua require('smart-splits').resize_down() <cr>", "Resize window down" },
+    ["~"] = {
+      function()
+        -- in case notify wasn't loaded
+        deepvim.fn.set_notify()
+        require("smart-splits").start_resize_mode()
+      end,
+      "Start Resize mode",
+    },
   },
 }
 
 M.autopairs = {
   n = {
-    ["<leader>ua"] = { "<cmd> lua deepvim.toggle_autopairs() <cr>", "Toggle autopairs" },
+    ["<leader>ua"] = {
+      function()
+        deepvim.fn.toggle_autopairs()
+      end,
+      "Toggle autopairs",
+    },
   },
 }
 
@@ -126,16 +180,18 @@ M.lspsaga = {
     ["gr"] = { "<cmd> Lspsaga rename<CR>", "lsp rename" },
     ["[d"] = { "<cmd> Lspsaga diagnostic_jump_prev<CR>", "lsp diagnostic jump prev" },
     ["d]"] = { "<cmd> Lspsaga diagnostic_jump_nexct<CR>", "lsp diagnostic jump next" },
-    ["<leader>la"] = { "<cmd> Lspsaga code_action<CR>", "lsp code action" },
     ["[E"] = {
-      "<cmd> lua require('lspsaga.diagnostic').goto_prev({ severity = vim.diagnostic.severity.ERROR})<CR>",
+      function()
+        require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
+      end,
       "lsp diagnostic jump prev",
     },
     ["E]"] = {
-      "<cmd> lua require('lspsaga.diagnostic').goto_next({ severity = vim.diagnostic.severity.ERROR})<CR>",
+      function()
+        require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
+      end,
       "lsp diagnostic jump prev",
     },
-    ["<leader>e"] = { "<cmd> LSoutlineToggle<CR>", "lsp toggle outline" },
   },
 }
 
@@ -191,10 +247,14 @@ M.lspconfig = {
     },
 
     ["<leader>lf"] = {
-      function()
-        vim.lsp.buf.format({ async = true })
-      end,
+      "<cmd>Format<cr>",
       "lsp formatting",
+    },
+    ["<leader>la"] = {
+      function()
+        vim.lsp.buf.code_action()
+      end,
+      "lsp code actions",
     },
   },
 }

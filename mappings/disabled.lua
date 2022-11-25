@@ -21,5 +21,22 @@ return {
     ["<leader>gt"] = "",
     ["<leader>pt"] = "",
     ["<leader>th"] = "",
-  }
+
+    --lspconfig
+    ["gD"] = "",
+    ["gd"] = "",
+    ["K"] = "",
+    ["gi"] = "",
+    ["<leader>ls"] = "",
+    ["<leader>D"] = "",
+    ["<leader>ra"] = "",
+    ["<leader>ca"] = "",
+    ["gr"] = "",
+    ["[d]"] = "",
+    ["<leader>q"] = "",
+    ["<leader>fm"] = "",
+    ["<leader>wa"] = "",
+    ["<leader>wr"] = "",
+    ["<leader>wl"] = "",
+  },
 }
