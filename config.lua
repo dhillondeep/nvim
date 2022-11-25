@@ -1,7 +1,3 @@
-print("g 1")
--- global configuration
-_G.deepvim = {}
-
 -- configure lsp servers
 function deepvim.lspservers()
   return {
@@ -13,17 +9,17 @@ function deepvim.lspservers()
         },
         workspace = {
           library = {
-            [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-            [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
+            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+            [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
           },
-          maxPreload =  100000,
-          preloadFileSize =  10000,
+          maxPreload = 100000,
+          preloadFileSize = 10000,
         },
       },
     },
     ["jsonls"] = {
       json = {
-        schemas = require('schemastore').json.schemas(),
+        schemas = require("schemastore").json.schemas(),
         validate = { enable = true },
       },
     },
@@ -31,19 +27,14 @@ function deepvim.lspservers()
     ["vimls"] = {},
     ["dockerls"] = {},
     ["bashls"] = {},
-    ["kotlin_language_server"] = {}
+    ["kotlin_language_server"] = {},
   }
 end
 
--- configure treesitter
-function deepvim.treesitter()
+function deepvim.nullls_sources(nullls)
   return {
-    languages = { "lua", "go", "cpp", "c", "bash", "json", "json5", "gomod", "gowork", "yaml", "html" },
-    rainbow = {
-      disable = { "html" }
-    }
+    nullls.builtins.formatting.stylua,
+    nullls.builtins.formatting.jq,
+    nullls.builtins.formatting.yamlfmt,
   }
 end
-
--- load global fields and functions
-require("custom.utils")
