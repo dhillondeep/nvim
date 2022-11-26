@@ -47,7 +47,7 @@ require("tabby.tabline").set(function(line)
         margin = constants.padding,
       }
     end),
-    line.sep("█ ", theme.head, theme.fill),
+    line.sep("█ ", { fg = colors.white, bg = colors.white }, { fg = colors.white }),
     line.wins_in_tab(line.api.get_current_tab(), buf_filters).foreach(function(win)
       local hl = win.is_current() and theme.current_win or theme.inactive
       return {

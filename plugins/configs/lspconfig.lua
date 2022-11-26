@@ -6,6 +6,10 @@ local present2, nullls = pcall(require, "null-ls")
 if not present2 then
 	return
 end
+local present3, notify = pcall(require, "notify")
+if not present3 then
+	return
+end
 
 require("base46").load_highlight("lsp")
 require("nvchad_ui.lsp")
@@ -51,6 +55,9 @@ capabilities.textDocument.completion.completionItem = {
 		},
 	},
 }
+
+-- setup vim.notify
+vim.notify = notify
 
 -- setup null-ls
 nullls.setup({

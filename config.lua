@@ -36,4 +36,26 @@ function cfg.nullls_sources(nullls)
   }
 end
 
+-- Configurations for global highlights
+function cfg.set_highlights(base46)
+  local colors = base46.get_theme_tb("base_30")
+
+  local highlights = {
+    -- global generic highlights
+    DeepNvimBorder = { fg = colors.grey },
+    DeepNvimTitleBg = { bg = colors.red, fg = colors.black, bold = true },
+    DeepNvimTitle = { fg = colors.red, bold = true },
+    DeepNvimTitleAltBg = { bg = colors.green, fg = colors.black, bold = true },
+    DeepNvimTitleAlt = { fg = colors.green, bold = true },
+    DeepNvimSelection = { bg = colors.black2, fg = colors.white, bold = true },
+    DeepNvimContent = { fg = colors.white },
+
+    FloatBorder = { link = "DeepNvimBorder" },
+  }
+
+  for group, conf in pairs(highlights) do
+    vim.api.nvim_set_hl(0, group, conf)
+  end
+end
+
 deepvim.cfg = cfg

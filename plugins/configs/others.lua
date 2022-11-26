@@ -41,9 +41,9 @@ end
 function others.notify()
   local notify = require("notify")
   notify.setup({
-    fps = 60,
-    stages = "fade_in_slide_out",
-    timeout = 100,
+    fps = 30,
+    stages = "fade",
+    timeout = 1000,
   })
   vim.notify = notify
 end

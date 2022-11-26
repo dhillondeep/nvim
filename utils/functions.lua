@@ -45,20 +45,11 @@ function fn.toggle_term_cmd(opts)
 	g.user_terminals[opts.cmd][num]:toggle()
 end
 
-function fn.set_notify()
-	-- set notify in case it is not set (only if it exists)
-	local present, notify = pcall(require, "notify")
-	if present then
-		vim.notify = notify
-	end
-end
-
 --- Serve a notification with a title of AstroNvim
 -- @param msg the notification body
 -- @param type the type of the notification (:help vim.log.levels)
 -- @param opts table of nvim-notify options to use (:help notify-options)
 function fn.notify(msg, type, opts)
-	fn.set_notify()
 	vim.schedule(function()
 		vim.notify(msg, type, utils.default_tbl(opts, { title = "DeepNvim" }))
 	end)

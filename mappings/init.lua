@@ -12,7 +12,9 @@ M.general = {
     ["<leader>qa"] = { "<cmd>q<cr>", "Close all files" },
     ["<C-s>"] = { "<cmd>w!<cr>", "Force write" },
     ["<C-q>"] = { "<cmd>q!<cr>", "Force quit" },
-    ["<esc>"] = { "<cmd>noh<cr>", "Disable highlight on esc" },
+
+    ["<Tab>"] = { "<cmd>tabnext<cr>", "Go to next Tab" },
+    ["<S-Tab>"] = { "<cmd>tabprev<cr>", "Go to previous Tab" },
   },
 }
 
@@ -102,7 +104,7 @@ M.gitstatus = {
 -- FZF Lua
 M.fzflua = {
   n = {
-    ["<leader>fW"] = { "<cmd> FzfLua live_grep_native <CR>", "Live grep (find word)" },
+    ["<leader>fz"] = { "<cmd> FzfLua live_grep_native <CR>", "Live grep (find word)" },
     ["<leader>fl"] = { "<cmd> FzfLua blines <CR>", "Find lines in buffer" },
     ["<leader>fL"] = { "<cmd> FzfLua lines <CR>", "Find lines in all buffers" },
     ["<leader>fR"] = { "<cmd> FzfLua resume <CR>", "Resume last fzf-lua command" },
@@ -154,8 +156,6 @@ M.smart_splits = {
   n = {
     ["~"] = {
       function()
-        -- in case notify wasn't loaded
-        deepvim.fn.set_notify()
         require("smart-splits").start_resize_mode()
       end,
       "Start Resize mode",
@@ -177,9 +177,11 @@ M.autopairs = {
 M.lspsaga = {
   n = {
     ["gf"] = { "<cmd> Lspsaga lsp_finder<CR>", "lsp finder" },
-    ["gr"] = { "<cmd> Lspsaga rename<CR>", "lsp rename" },
+    ["gp"] = { "<cmd> Lspsaga peek_definition<CR>", "lsp peek definition" },
+    ["K"] = { "<cmd> Lspsaga hover_doc<CR>", "lsp hover doc" },
+    ["<leader>la"] = { "<cmd> Lspsaga code_action<CR>", "lsp code action" },
     ["[d"] = { "<cmd> Lspsaga diagnostic_jump_prev<CR>", "lsp diagnostic jump prev" },
-    ["d]"] = { "<cmd> Lspsaga diagnostic_jump_nexct<CR>", "lsp diagnostic jump next" },
+    ["d]"] = { "<cmd> Lspsaga diagnostic_jump_next<CR>", "lsp diagnostic jump next" },
     ["[E"] = {
       function()
         require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
@@ -199,6 +201,13 @@ M.lspconfig = {
   plugin = true,
 
   n = {
+    ["gr"] = {
+      function()
+        require("nvchad_ui.renamer").open()
+      end,
+      "lsp rename",
+    },
+
     ["gD"] = {
       function()
         vim.lsp.buf.declaration()
@@ -220,18 +229,13 @@ M.lspconfig = {
       "lsp definition",
     },
 
-    ["K"] = {
-      function()
-        vim.lsp.buf.hover()
-      end,
-      "lsp hover",
-    },
     ["gI"] = {
       function()
         vim.lsp.buf.implementation()
       end,
       "lsp implementation",
     },
+
     ["<leader>ls"] = {
       function()
         vim.lsp.buf.signature_help()
@@ -249,12 +253,6 @@ M.lspconfig = {
     ["<leader>lf"] = {
       "<cmd>Format<cr>",
       "lsp formatting",
-    },
-    ["<leader>la"] = {
-      function()
-        vim.lsp.buf.code_action()
-      end,
-      "lsp code actions",
     },
   },
 }

@@ -11,6 +11,19 @@ return {
 		},
 	},
 
+	["NvChad/base46"] = {
+		config = function()
+			local ok, base46 = pcall(require, "base46")
+
+			if ok then
+				base46.load_theme()
+
+				-- set custom highlights
+				deepvim.cfg.set_highlights(base46)
+			end
+		end,
+	},
+
 	["kyazdani42/nvim-web-devicons"] = {
 		config = function()
 			require("custom.plugins.configs.devicons")
