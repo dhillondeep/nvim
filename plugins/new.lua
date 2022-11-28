@@ -61,6 +61,15 @@ return {
 		end,
 	},
 
+	["nvim-treesitter/nvim-treesitter-textobjects"] = {
+		after = "nvim-treesitter",
+		config = function()
+			require("custom.plugins.configs.nvimtreesittertextobjects")
+		end,
+	},
+
+	["ThePrimeagen/harpoon"] = {},
+
 	--- UI/Look and feel ---
 
 	-- Tabline/Bufferline

@@ -3,8 +3,8 @@ if not present then
   return
 end
 
-local present, lga_actions = pcall(require, "telescope-live-grep-args.actions")
-if not present then
+local present2, lga_actions = pcall(require, "telescope-live-grep-args.actions")
+if not present2 then
   return
 end
 
@@ -16,7 +16,17 @@ require("base46").load_highlight("telescope")
 
 local options = {
   pickers = {
+    find_files = {
+      find_command = {"fd", "--hidden", "--follow", "--no-ignore", "-t", "file", "-E", ".min.js", "-E", ".swp", "-E", ".git", "-E", "node_modules", "-E", "vendor", "-E", "bazel-*"}
+    },
     buffers = {
+      mappings = {
+        i = {
+          ["<c-d>"] = actions.delete_buffer,
+        },
+      },
+    },
+    terminals = {
       mappings = {
         i = {
           ["<c-d>"] = actions.delete_buffer,
@@ -27,13 +37,18 @@ local options = {
   defaults = {
     vimgrep_arguments = {
       "rg",
-      "-L",
-      "--color=never",
-      "--no-heading",
-      "--with-filename",
-      "--line-number",
       "--column",
+      "--line-number",
+      "--no-heading",
+      "--color=never",
+      "--hidden",
+      "--follow",
+      "--no-ignore",
       "--smart-case",
+      "-g",
+      "!*.{min.js,swp,o,zip}",
+      "-g",
+      "!{.git,node_modules,*/node_modules,vendor,*/vendor,bazel-*,*/bazel-*}/*",
     },
     prompt_prefix = "   ",
     selection_caret = "  ",
@@ -76,6 +91,8 @@ local options = {
         ["<S-tab>"] = actions.cycle_history_prev,
         ["<C-n>"] = actions.move_selection_next,
         ["<C-p>"] = actions.move_selection_previous,
+        ["<C-s>"] = actions.select_horizontal,
+        ["<C-h>"] = "which_key",
       },
     },
   },
@@ -91,7 +108,7 @@ local options = {
     },
   },
 
-  extensions_list = { "themes", "terms", "fzf", "live-grep-args", "ui-select", "projects" },
+  extensions_list = { "themes", "terms", "fzf", "live-grep-args", "ui-select", "projects", "harpoon" },
 }
 
 -- check for any override

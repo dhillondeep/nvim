@@ -49,13 +49,52 @@ M.toggleterm = {
   n = {
     ["<leader>tl"] = {
       function()
-        deepvim.fn.toggle_term_cmd("lazygit")
+        deepvim.fn.toggle_term("lazygit")
       end,
       "ToggleTerm lazygit",
     },
-    ["<leader>tf"] = { "<cmd>ToggleTerm direction=float<cr>", "ToggleTerm float" },
-    ["<leader>th"] = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "ToggleTerm horizontal split" },
-    ["<leader>tv"] = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "ToggleTerm vertical split" },
+    ["<leader>tv"] = {
+      function()
+        deepvim.fn.toggle_term({direction="vertical"})
+      end,
+      "ToggleTerm vertical",
+    },
+    ["<leader>tcv"] = {
+      function()
+        deepvim.fn.close_term({direction="vertical"})
+      end,
+      "ToggleTerm close vertical",
+    },
+    ["<leader>th"] = {
+      function()
+        deepvim.fn.toggle_term({direction="horizontal"})
+      end,
+      "ToggleTerm horizontal",
+    },
+    ["<leader>tch"] = {
+      function()
+        deepvim.fn.close_term({direction="horizontal"})
+      end,
+      "ToggleTerm close horizontal",
+    },
+    ["<leader>tf"] = {
+      function()
+        deepvim.fn.toggle_term({direction="float"})
+      end,
+      "ToggleTerm float",
+    },
+    ["<leader>tcf"] = {
+      function()
+        deepvim.fn.close_term({direction="float"})
+      end,
+      "ToggleTerm close float",
+    },
+    ["<leader>tca"] = {
+      function()
+        deepvim.fn.close_all_terms()
+      end,
+      "ToggleTerm close all",
+    },
   },
 }
 
@@ -133,7 +172,7 @@ M.telescope = {
       function()
         require("telescope").extensions.projects.projects()
       end,
-      "Find projects",
+      "find projects",
     },
     ["<leader>fr"] = { "<cmd> Telescope resume <CR>", "Resume last telescope command" },
 
@@ -141,7 +180,7 @@ M.telescope = {
     ["<leader>gb"] = { "<cmd> Telescope git_branches <cr>", "Git branches" },
     ["<leader>gc"] = { "<cmd> Telescope git_commits <cr>", "Git commits" },
 
-    ["<leader>sh"] = { "<cmd> Telescope help_tags <cr>", "Search help" },
+    ["<leader>sh"] = { "<cmd> Telescope harpoon marks <CR>", "Search harpoon marks" },
     ["<leader>sm"] = { "<cmd> Telescope man_pages <cr>", "Search man" },
     ["<leader>sk"] = { "<cmd> Telescope keymaps <cr>", "Search keymaps" },
     ["<leader>sc"] = { "<cmd> Telescope commands <cr>", "Search commands" },
@@ -181,14 +220,14 @@ M.lspsaga = {
     ["K"] = { "<cmd> Lspsaga hover_doc<CR>", "lsp hover doc" },
     ["<leader>la"] = { "<cmd> Lspsaga code_action<CR>", "lsp code action" },
     ["[d"] = { "<cmd> Lspsaga diagnostic_jump_prev<CR>", "lsp diagnostic jump prev" },
-    ["d]"] = { "<cmd> Lspsaga diagnostic_jump_next<CR>", "lsp diagnostic jump next" },
+    ["]d"] = { "<cmd> Lspsaga diagnostic_jump_next<CR>", "lsp diagnostic jump next" },
     ["[E"] = {
       function()
         require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
       end,
       "lsp diagnostic jump prev",
     },
-    ["E]"] = {
+    ["]E"] = {
       function()
         require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
       end,
@@ -253,6 +292,16 @@ M.lspconfig = {
     ["<leader>lf"] = {
       "<cmd>Format<cr>",
       "lsp formatting",
+    },
+  },
+}
+
+M.harpoon = {
+  ["n"] = {
+    ["<leader>mf"] = {
+      function()
+        require("harpoon.mark").add_file()
+      end,
     },
   },
 }
